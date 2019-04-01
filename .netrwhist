@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/oli/code/fatmap/fatmap_mobile_2.0/app/node_modules/react-native-branch/android/src'
+let g:netrw_dirhist_2='/Users/oli/code/fatmap/fatmap_mobile_2.0/app/node_modules/react-native-branch/android/src/main'
+let g:netrw_dirhist_3='/Users/oli/code/fatmap/fatmap_mobile_2.0/app/node_modules/react-native-branch/android/src/main/java'
+let g:netrw_dirhist_4='/Users/oli/code/fatmap/fatmap_mobile_2.0/app/node_modules/react-native-branch/android/src/main/java/io'
+let g:netrw_dirhist_5='/Users/oli/code/fatmap/fatmap_mobile_2.0/app/node_modules/react-native-branch/android/src/main/java/io/branch'
+let g:netrw_dirhist_6='/Users/oli/code/fatmap/fatmap_mobile_2.0/app/node_modules/react-native-branch/android/src/main/java/io/branch/rnbranch'
