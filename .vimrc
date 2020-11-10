@@ -6,7 +6,6 @@ call vundle#begin()
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'elixir-lang/vim-elixir'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'kchmck/vim-coffee-script'
@@ -15,6 +14,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'othree/html5.vim'
 Plugin 'rizzatti/dash.vim'
 Plugin 'slim-template/vim-slim'
+Plugin 'elixir-editors/vim-elixir'
+"Plugin 'slashmili/alchemist.vim'
 Plugin 'tommcdo/vim-lion'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-bundler'
@@ -28,22 +29,22 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'wellle/targets.vim'
 Plugin 'fatih/vim-go'
 Plugin 'neoclide/vim-jsx-improve'
-Plugin 'prettier/vim-prettier'
-Plugin 'w0rp/ale'
-Plugin 'ervandew/supertab'
+" Plugin 'prettier/vim-prettier'
+" Plugin 'dense-analysis/ale'
+" Plugin 'ervandew/supertab'
 Plugin 'leafgarland/typescript-vim'
-" deoplete
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'roxma/nvim-yarp'
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'wokalski/autocomplete-flow'
-" You will also need the following for function argument completion:
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-" end deoplete
 Plugin 'joker1007/vim-ruby-heredoc-syntax'
-" syntax highlighting for sql within SQL`` template strings
 
+Plugin 'peitalin/vim-jsx-typescript'
+
+Plugin 'styled-components/vim-styled-components'
+
+Plugin 'jparise/vim-graphql'
+
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+
+" syntax highlighting for sql within SQL`` template strings
+Plugin 'statico/vim-javascript-sql'
 "Plugin 'flowtype/vim-flow'
 "Plugin 'lambdatoast/elm.vim'
 "Plugin 'mattn/emmet-vim'
@@ -52,12 +53,22 @@ Plugin 'joker1007/vim-ruby-heredoc-syntax'
 " replaced with deoplete
 " included and altered by vim-jsx-improve
 "Plugin 'pangloss/vim-javascript'
+" deoplete
+"Plugin 'roxma/vim-hug-neovim-rpc'
+"Plugin 'roxma/nvim-yarp'
+"Plugin 'Shougo/deoplete.nvim'
+"Plugin 'wokalski/autocomplete-flow'
+" You will also need the following for function argument completion:
+"Plugin 'Shougo/neosnippet'
+"Plugin 'Shougo/neosnippet-snippets'
+" end deoplete
 
 call vundle#end()
 filetype plugin indent on
 
 " source .vimrc automatically on save like magic
 au BufWritePost .vimrc so $MYVIMRC
+
 " open vimrc in split with leaderev
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
@@ -171,7 +182,7 @@ function! Preserve(command)
 endfunction
 
 " remove whitespace at the end of lines automatically on save
-autocmd BufWritePre *.rb,*.txt,*.js,*.css,*.scss,*.hbs,*.html,*.coffee,*.haml,*.yml,*.ts,*.sql :call Preserve("%s/\\s\\+$//e")
+autocmd BufWritePre *.rb,*.txt,*.js,*.flow,*.css,*.scss,*.hbs,*.html,*.coffee,*.haml,*.yml,*.ts,*.sql :call Preserve("%s/\\s\\+$//e")
 nmap <silent> <Leader><Esc> :call Preserve("normal gg=G")<CR>
 
 " CtrlP ignore matchers for autocomplete 
@@ -201,71 +212,78 @@ let g:rbpt_colorpairs = [
 " augroup END
 
 augroup ft_rb
-    au!
-    " fix the SLOOOW syntax highlighting
-    au FileType ruby setlocal re=1 foldmethod=manual
+  au!
+  " fix the SLOOOW syntax highlighting
+  au FileType ruby setlocal re=1 foldmethod=manual
 augroup END
-
-" vim-prettier setup
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md Prettier
-
-" max line length that prettier will wrap on
-let g:prettier#config#print_width = 80
-
-" number of spaces per indentation level
-let g:prettier#config#tab_width = 2
-
-" use tabs over spaces
-let g:prettier#config#use_tabs = 'false'
-
-" print semicolons
-let g:prettier#config#semi = 'true'
-
-" single quotes over double quotes
-let g:prettier#config#single_quote = 'false'
-
-" print spaces between brackets
-let g:prettier#config#bracket_spacing = 'true'
-
-" put > on the last line instead of new line
-let g:prettier#config#jsx_bracket_same_line = 'false'
-
-" none|es5|all
-let g:prettier#config#trailing_comma = 'none'
-
-" flow|babylon|typescript|css|less|scss|json|graphql|markdown
-let g:prettier#config#parser = 'babylon'
-
-" cli-override|file-override|prefer-file
-let g:prettier#config#config_precedence = 'prefer-file'
-
-" ALE
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
-
-let g:ale_linters = { 
-\'javascript': ['flow', 'eslint'],
-\}
-let g:ale_fixers = {
-\'javascript': ['eslint'],
-\}
-
-" deoplete
-" call deoplete#enable()
-let g:python3_host_prog = '/usr/local/Cellar/python3/3.6.4/bin/python3'
-let g:deoplete#enable_at_startup = 1
-let g:neosnippet#enable_completed_snippet = 1
-
-" flow (vim-javascript)
-"let g:javascript_plugin_flow = 1
 
 " set .mm files to cpp type
 au BufNewFile,BufRead *.mm set filetype=cpp
+au BufNewFile,BufRead Fastfile set filetype=ruby
+au BufNewFile,BufRead *.tsx set filetype=typescriptreact
 
 " for js/coffee/jade files, 4 spaces
 autocmd Filetype cpp setlocal ts=4 sw=4 sts=0 expandtab
 autocmd Filetype java setlocal ts=4 sw=4 sts=0 expandtab
 
+" Commenting blocks of code with double-tap f / uncomment with fh
+"autocmd FileType c,cpp,java,scala,javascript let b:comment_leader = '// '
+"autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+"autocmd FileType vim              let b:comment_leader = '" '
+"noremap <silent> ff :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+"noremap <silent> fh :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+"
+
+" coc.vim
+" https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+" Oli: Suggested but I don't like it
+" set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+set signcolumn=number
+
+"" Use Ctrl+j/k to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
+
+" end coc.vim
+
+set tags^=.git/tags
