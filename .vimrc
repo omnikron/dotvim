@@ -240,9 +240,12 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver'
   \ ]
 
-if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+"if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
-endif
+"endif
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
