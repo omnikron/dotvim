@@ -9,8 +9,8 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
-" Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
 Plugin 'othree/html5.vim'
 Plugin 'rizzatti/dash.vim'
 Plugin 'slim-template/vim-slim'
@@ -90,6 +90,10 @@ au BufWritePost .vimrc so $MYVIMRC
 " search dash for word under cursor
 :nmap <silent> <leader>d <Plug>DashSearch
 :nmap <silent> <leader>D <Plug>DashGlobalSearch
+
+" Ctrl P opens fzf for files checked into git
+" (:Files opens all)
+:nmap <silent> <C-p> :GFiles<CR>
 
 " go run
 :nnoremap <leader>gr :GoRun<cr>
@@ -184,32 +188,6 @@ endfunction
 " remove whitespace at the end of lines automatically on save
 autocmd BufWritePre *.rb,*.txt,*.js,*.flow,*.css,*.scss,*.hbs,*.html,*.coffee,*.haml,*.yml,*.ts,*.sql :call Preserve("%s/\\s\\+$//e")
 nmap <silent> <Leader><Esc> :call Preserve("normal gg=G")<CR>
-
-" CtrlP ignore matchers for autocomplete 
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](\.(git))|bower_components|tmp|node_modules|build|vendor$',
-      \ }
-
-" rainbow parentheses for solarized
-let g:rbpt_colorpairs = [
-      \ [ '13', '#6c71c4'],
-      \ [ '5',  '#d33682'],
-      \ [ '1',  '#dc322f'],
-      \ [ '9',  '#cb4b16'],
-      \ [ '3',  '#b58900'],
-      \ [ '2',  '#859900'],
-      \ [ '6',  '#2aa198'],
-      \ [ '4',  '#268bd2'],
-      \ ]
-
-" Enable rainbow parentheses for all buffers
-" augroup rainbow_parentheses
-"   au!
-"   au VimEnter * RainbowParenthesesActivate
-"   au BufEnter * RainbowParenthesesLoadRound
-"   au BufEnter * RainbowParenthesesLoadSquare
-"   au BufEnter * RainbowParenthesesLoadBraces
-" augroup END
 
 augroup ft_rb
   au!
