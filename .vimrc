@@ -20,6 +20,7 @@ Plugin 'tommcdo/vim-lion'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
@@ -45,6 +46,7 @@ Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 
 " syntax highlighting for sql within SQL`` template strings
 Plugin 'statico/vim-javascript-sql'
+Plugin 'vim-test/vim-test'
 "Plugin 'flowtype/vim-flow'
 "Plugin 'lambdatoast/elm.vim'
 "Plugin 'mattn/emmet-vim'
@@ -94,6 +96,15 @@ au BufWritePost .vimrc so $MYVIMRC
 " Ctrl P opens fzf for files checked into git
 " (:Files opens all)
 :nmap <silent> <C-p> :GFiles<CR>
+:nmap <silent> <C-b> :Buffers<CR>
+
+" vim-test
+let test#strategy = "vimterminal"
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>tT :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
 
 " go run
 :nnoremap <leader>gr :GoRun<cr>
