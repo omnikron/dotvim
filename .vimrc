@@ -44,6 +44,8 @@ Plugin 'jparise/vim-graphql'
 
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plugin 'rust-lang/rust.vim'
+
 " syntax highlighting for sql within SQL`` template strings
 Plugin 'statico/vim-javascript-sql'
 Plugin 'vim-test/vim-test'
@@ -76,6 +78,7 @@ au BufWritePost .vimrc so $MYVIMRC
 
 " Git grep for the word under the cursor
 :nnoremap <leader>G :Ggrep <C-r><C-w><cr>
+:nnoremap <leader>GB :GBrowse <cr>
 
 " vim-rails mappings
 :nnoremap <leader>EC :Econtroller <cr>
@@ -199,6 +202,11 @@ endfunction
 " remove whitespace at the end of lines automatically on save
 autocmd BufWritePre *.rb,*.txt,*.js,*.flow,*.css,*.scss,*.hbs,*.html,*.coffee,*.haml,*.yml,*.ts,*.sql :call Preserve("%s/\\s\\+$//e")
 nmap <silent> <Leader><Esc> :call Preserve("normal gg=G")<CR>
+
+autocmd BufWritePre *.rs :RustFmt 
+
+" brew install pgformatter. then gggqG to prettify entire .sql file
+au FileType sql setl formatprg=/usr/local/bin/pg_format\ -
 
 augroup ft_rb
   au!
