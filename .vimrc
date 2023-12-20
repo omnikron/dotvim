@@ -49,6 +49,13 @@ Plugin 'rust-lang/rust.vim'
 " syntax highlighting for sql within SQL`` template strings
 Plugin 'statico/vim-javascript-sql'
 Plugin 'vim-test/vim-test'
+
+" Markdown/Mermaid
+Plugin 'iamcco/markdown-preview.nvim' " :call mkdp#util#install()
+" Syntax Highlighting
+"Plugin 'mracos/mermaid.vim'
+Plugin 'chazmcgarvey/vim-mermaid'
+
 "Plugin 'flowtype/vim-flow'
 "Plugin 'lambdatoast/elm.vim'
 "Plugin 'mattn/emmet-vim'
@@ -91,10 +98,6 @@ au BufWritePost .vimrc so $MYVIMRC
 :inoremap <leader>v <Esc>"*pa
 :nnoremap <leader>c "*yy
 :vnoremap <leader>c "*y
-
-" search dash for word under cursor
-:nmap <silent> <leader>d <Plug>DashSearch
-:nmap <silent> <leader>D <Plug>DashGlobalSearch
 
 " Ctrl P opens fzf for files checked into git
 " (:Files opens all)
@@ -231,8 +234,20 @@ autocmd Filetype java setlocal ts=4 sw=4 sts=0 expandtab
 "noremap <silent> fh :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 "
 
+" Markdown/Mermaid
+" Set filetype to mermaid if file starts with ```mermaid
+au BufRead * if getline(1) =~ '```mermaid' | setlocal ft=mermaid | endif
+nmap <leader>md <Plug>MarkdownPreviewToggle
+
+" Github
+nmap <leader>gB :GBrowse
+nmap <leader>gb :G blame
+
+
 " coc.vim
 " https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+let g:coc_node_path = '/opt/homebrew/bin/node'
+
 let g:coc_global_extensions = [
   \ 'coc-tsserver'
   \ ]
